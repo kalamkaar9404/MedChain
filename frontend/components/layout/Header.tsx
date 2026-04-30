@@ -20,6 +20,9 @@ export function Header() {
           <Link href='/' className='hover:text-blue-400 transition'>
             Home
           </Link>
+          <Link href='/medical-records' className='hover:text-blue-400 transition'>
+            My Records
+          </Link>
           <Link href='/patient/dashboard' className='hover:text-blue-400 transition'>
             Patient
           </Link>
@@ -48,6 +51,9 @@ export function Header() {
         <div className='md:hidden bg-slate-800 px-4 py-4 space-y-2'>
           <Link href='/' className='block hover:text-blue-400 transition py-2'>
             Home
+          </Link>
+          <Link href='/medical-records' className='block hover:text-blue-400 transition py-2'>
+            My Records
           </Link>
           <Link href='/patient/dashboard' className='block hover:text-blue-400 transition py-2'>
             Patient
