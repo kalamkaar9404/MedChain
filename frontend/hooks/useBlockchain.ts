@@ -11,8 +11,11 @@ export function useBlockchain() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     blockchain: data,
@@ -31,8 +34,11 @@ export function useTransactions() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     transactions: data || [],
@@ -48,8 +54,11 @@ export function useAnomalies() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     anomalies: data || [],
@@ -65,8 +74,11 @@ export function useAuditQueue() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     claims: data || [],
@@ -82,8 +94,11 @@ export function useAgentState() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     agent: data,

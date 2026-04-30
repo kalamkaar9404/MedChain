@@ -11,9 +11,12 @@ export function useClaims(patientId?: string, autoFetch = true) {
 
   useEffect(() => {
     if (autoFetch) {
-      execute()
+      const timer = setTimeout(() => {
+        execute()
+      }, 100)
+      return () => clearTimeout(timer)
     }
-  }, [autoFetch, execute])
+  }, [autoFetch])
 
   return {
     claims: data?.claims || [],
@@ -31,9 +34,12 @@ export function useClaimDetails(claimId: string) {
 
   useEffect(() => {
     if (claimId) {
-      execute()
+      const timer = setTimeout(() => {
+        execute()
+      }, 100)
+      return () => clearTimeout(timer)
     }
-  }, [claimId, execute])
+  }, [claimId])
 
   return {
     claim: data,
@@ -50,9 +56,12 @@ export function useClaimStatus(claimId: string) {
 
   useEffect(() => {
     if (claimId) {
-      execute()
+      const timer = setTimeout(() => {
+        execute()
+      }, 100)
+      return () => clearTimeout(timer)
     }
-  }, [claimId, execute])
+  }, [claimId])
 
   return {
     status: data?.status,
@@ -68,8 +77,11 @@ export function usePendingClaims() {
   )
 
   useEffect(() => {
-    execute()
-  }, [execute])
+    const timer = setTimeout(() => {
+      execute()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   return {
     claims: data?.claims || [],

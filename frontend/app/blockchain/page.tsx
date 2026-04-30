@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { Loader, ChevronDown, ChevronUp } from 'lucide-react'
 
 export default function BlockchainExplorer() {
-  const { blockchain, loading } = useBlockchain()
+  const { blockchain, loading, error } = useBlockchain()
   const { transactions } = useTransactions()
   const [expandedBlock, setExpandedBlock] = useState<number | null>(null)
 
@@ -17,7 +17,26 @@ export default function BlockchainExplorer() {
     interval: POLLING_INTERVALS.SYSTEM_HEALTH,
   })
 
-  if (loading) {
+  // Show error state if loading fails
+  if (error && !blockchain) {
+    return (
+      <div className='min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-8 px-4'>
+        <div className='max-w-7xl mx-auto'>
+          <div className='mb-8'>
+            <h1 className='text-4xl font-bold text-slate-900 mb-2'>Blockchain Explorer</h1>
+            <p className='text-gray-600'>View all transactions and blocks on the HealthClaim network</p>
+          </div>
+          <div className='bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center'>
+            <p className='text-yellow-800 mb-2'>Unable to load blockchain data</p>
+            <p className='text-sm text-yellow-600'>The backend API may be starting up. Please refresh in a moment.</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading only for initial load
+  if (loading && !blockchain) {
     return (
       <div className='min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-8 px-4 flex items-center justify-center'>
         <div className='text-center'>
