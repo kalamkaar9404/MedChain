@@ -195,18 +195,7 @@ export interface DashboardStats {
   escrow_balance: number;
 }
 
-export interface SystemHealth {
-  status: string;
-  timestamp: string;
-  blockchain_blocks: number;
-  total_claims: number;
-  escrow_balance: number;
-  agents: {
-    patient: string;
-    insurer: string;
-    auditor: string;
-  };
-}
+// Removed SystemHealth interface - not needed
 
 // Demo Scenario Types
 export interface DemoScenario {

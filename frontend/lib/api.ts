@@ -9,7 +9,6 @@ import {
   AuditRecord,
   ClawbackPayload,
   AgentState,
-  SystemHealth,
   DashboardStats,
   ClaimStatus,
   Anomaly,
@@ -161,8 +160,8 @@ class APIClient {
   }
 
   // System Endpoints
-  async getHealth(): Promise<ApiResponse<SystemHealth>> {
-    return this.request<SystemHealth>(API_ENDPOINTS.GET_HEALTH)
+  async getHealth(): Promise<ApiResponse<any>> {
+    return this.request<any>(API_ENDPOINTS.GET_HEALTH)
   }
 
   async getAgentState(): Promise<ApiResponse<AgentState>> {

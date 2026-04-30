@@ -32,9 +32,6 @@ export function Header() {
           <Link href='/blockchain' className='hover:text-blue-400 transition'>
             Blockchain
           </Link>
-          <Link href='/status' className='hover:text-blue-400 transition'>
-            Status
-          </Link>
           <Link href='/demo' className='hover:text-blue-400 transition'>
             Demo
           </Link>
@@ -63,9 +60,6 @@ export function Header() {
           </Link>
           <Link href='/blockchain' className='block hover:text-blue-400 transition py-2'>
             Blockchain
-          </Link>
-          <Link href='/status' className='block hover:text-blue-400 transition py-2'>
-            Status
           </Link>
           <Link href='/demo' className='block hover:text-blue-400 transition py-2'>
             Demo
