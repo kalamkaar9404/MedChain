@@ -1,6 +1,6 @@
 import { ClaimStatus, DocumentType } from "./types";
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://web-production-c085a.up.railway.app";
 
 // Status Badge Configuration
 export const STATUS_COLORS: Record<ClaimStatus, { bg: string; text: string; border: string }> = {

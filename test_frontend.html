@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Railway Backend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .loading { background-color: #fff3cd; border-color: #ffeaa7; }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Railway Backend Test</h1>
+    <p>Testing: <strong>https://web-production-c085a.up.railway.app</strong></p>
+
+    <div id="test1" class="test-section loading">
+        <h2>Test 1: Health Check</h2>
+        <button onclick="testHealth()">Run Test</button>
+        <div id="health-result"></div>
+    </div>
+
+    <div id="test2" class="test-section loading">
+        <h2>Test 2: Get Claims</h2>
+        <button onclick="testGetClaims()">Run Test</button>
+        <div id="claims-result"></div>
+    </div>
+
+    <div id="test3" class="test-section loading">
+        <h2>Test 3: Submit Claim</h2>
+        <button onclick="testSubmitClaim()">Run Test</button>
+        <div id="submit-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Summary</h2>
+        <div id="summary"></div>
+    </div>
+
+    <script>
+        const API_URL = 'https://web-production-c085a.up.railway.app';
+        let results = { passed: 0, failed: 0 };
+
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            const testDiv = document.getElementById('test1');
+            
+            try {
+                resultDiv.innerHTML = '<p>⏳ Testing...</p>';
+                
+                const response = await fetch(`${API_URL}/api/health`);
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'healthy') {
+                    testDiv.className = 'test-section success';
+                    resultDiv.innerHTML = `
+                        <p>✅ <strong>SUCCESS</strong></p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    results.passed++;
+                } else {
+                    throw new Error('Health check failed');
+                }
+            } catch (error) {
+                testDiv.className = 'test-section error';
+                resultDiv.innerHTML = `
+                    <p>❌ <strong>FAILED</strong></p>
+                    <p>Error: ${error.message}</p>
+                    <p>Check browser console for details</p>
+                `;
+                results.failed++;
+                console.error('Health check error:', error);
+            }
+            updateSummary();
+        }
+
+        async function testGetClaims() {
+            const resultDiv = document.getElementById('claims-result');
+            const testDiv = document.getElementById('test2');
+            
+            try {
+                resultDiv.innerHTML = '<p>⏳ Testing...</p>';
+                
+                const response = await fetch(`${API_URL}/api/claims`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testDiv.className = 'test-section success';
+                    resultDiv.innerHTML = `
+                        <p>✅ <strong>SUCCESS</strong></p>
+                        <p>Total claims: ${data.total}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    results.passed++;
+                } else {
+                    throw new Error('Get claims failed');
+                }
+            } catch (error) {
+                testDiv.className = 'test-section error';
+                resultDiv.innerHTML = `
+                    <p>❌ <strong>FAILED</strong></p>
+                    <p>Error: ${error.message}</p>
+                    <p>Check browser console for details</p>
+                `;
+                results.failed++;
+                console.error('Get claims error:', error);
+            }
+            updateSummary();
+        }
+
+        async function testSubmitClaim() {
+            const resultDiv = document.getElementById('submit-result');
+            const testDiv = document.getElementById('test3');
+            
+            try {
+                resultDiv.innerHTML = '<p>⏳ Testing...</p>';
+                
+                const claimData = {
+                    patient_id: 'test_patient_browser',
+                    amount: 30000,
+                    reason: 'Browser test claim',
+                    admission_date: '2024-01-15T10:00:00',
+                    discharge_date: '2024-01-18T14:00:00',
+                    document_hashes: ['browser_hash_1'],
+                    document_types: ['MEDICAL_INVOICE'],
+                    signature_verified: true,
+                    stamp_verified: true
+                };
+                
+                const response = await fetch(`${API_URL}/api/claims/submit`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(claimData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    testDiv.className = 'test-section success';
+                    resultDiv.innerHTML = `
+                        <p>✅ <strong>SUCCESS</strong></p>
+                        <p>Claim ID: ${data.claim.id}</p>
+                        <p>Status: ${data.claim.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    results.passed++;
+                } else {
+                    throw new Error('Submit claim failed');
+                }
+            } catch (error) {
+                testDiv.className = 'test-section error';
+                resultDiv.innerHTML = `
+                    <p>❌ <strong>FAILED</strong></p>
+                    <p>Error: ${error.message}</p>
+                    <p>Check browser console for details</p>
+                `;
+                results.failed++;
+                console.error('Submit claim error:', error);
+            }
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const summaryDiv = document.getElementById('summary');
+            const total = results.passed + results.failed;
+            
+            if (total === 0) {
+                summaryDiv.innerHTML = '<p>Click "Run Test" buttons above to test the API</p>';
+            } else {
+                summaryDiv.innerHTML = `
+                    <p><strong>Tests Run:</strong> ${total}</p>
+                    <p style="color: green;"><strong>✅ Passed:</strong> ${results.passed}</p>
+                    <p style="color: red;"><strong>❌ Failed:</strong> ${results.failed}</p>
+                `;
+            }
+        }
+
+        // Auto-run all tests on page load
+        window.addEventListener('load', async () => {
+            await testHealth();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testGetClaims();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testSubmitClaim();
+        });
+    </script>
+</body>
+</html>

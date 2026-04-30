@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://web-production-c085a.up.railway.app',
   },
-  images: {
-    unoptimized: true,
+  // Ensure environment variables are available at build time
+  experimental: {
+    serverActions: true,
   },
 }
 
