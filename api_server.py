@@ -14,7 +14,16 @@ import random
 import uuid
 
 app = Flask(__name__)
-CORS(app)
+# Configure CORS to allow Vercel frontend
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["*"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "expose_headers": ["Content-Type"],
+        "supports_credentials": False
+    }
+})
 
 # Initialize blockchain infrastructure
 blockchain = BlockchainRegistry()
