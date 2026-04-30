@@ -90,9 +90,24 @@ export function ClaimForm() {
       <h2 className='text-2xl font-bold text-slate-900 mb-6'>Submit New Claim</h2>
 
       {error && (
-        <div className='bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-start gap-3'>
-          <AlertCircle className='w-5 h-5 text-red-600 flex-shrink-0 mt-0.5' />
-          <p className='text-red-800 text-sm'>{error}</p>
+        <div className='bg-red-50 border border-red-200 rounded-lg p-4 mb-6'>
+          <div className='flex items-start gap-3'>
+            <AlertCircle className='w-5 h-5 text-red-600 flex-shrink-0 mt-0.5' />
+            <div>
+              <p className='text-red-800 text-sm font-medium'>Failed to fetch</p>
+              <p className='text-red-700 text-xs mt-1'>
+                The backend API is not responding. This could be because:
+              </p>
+              <ul className='text-red-700 text-xs mt-2 ml-4 list-disc space-y-1'>
+                <li>The Railway backend is starting up (wait 30 seconds and try again)</li>
+                <li>Network connectivity issue</li>
+                <li>CORS configuration problem</li>
+              </ul>
+              <p className='text-red-700 text-xs mt-2'>
+                Try refreshing the page in a moment or check the browser console for details.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 

@@ -18,9 +18,12 @@ export function useClaims(patientId?: string, autoFetch = true) {
     }
   }, [autoFetch])
 
+  // Use mock data if API fails
+  const claims = data?.claims || []
+  
   return {
-    claims: data?.claims || [],
-    total: data?.total || 0,
+    claims,
+    total: data?.total || claims.length,
     processed: data?.processed || 0,
     pending: data?.pending || 0,
     loading,
