@@ -1,0 +1,157 @@
+# ========================================
+# VERCEL DEPLOYMENT COMMANDS
+# Copy and paste these commands one by one
+# ========================================
+
+# ----------------------------------------
+# STEP 1: Initialize Git (if not done)
+# ----------------------------------------
+git init
+git add .
+git commit -m "Ready for Vercel deployment"
+
+# ----------------------------------------
+# STEP 2: Create GitHub Repository
+# ----------------------------------------
+# Go to: https://github.com/new
+# Repository name: healthcare-settlement-platform
+# Click "Create repository"
+# Then come back and run:
+
+# Replace YOUR_USERNAME with your GitHub username
+git remote add origin https://github.com/YOUR_USERNAME/healthcare-settlement-platform.git
+git branch -M main
+git push -u origin main
+
+# ----------------------------------------
+# STEP 3: Install Vercel CLI
+# ----------------------------------------
+npm install -g vercel
+
+# ----------------------------------------
+# STEP 4: Deploy Frontend to Vercel
+# ----------------------------------------
+cd frontend
+vercel login
+vercel --prod
+
+# When prompted:
+# - Set up and deploy? Yes
+# - Which scope? [Your account]
+# - Link to existing project? No
+# - Project name? healthcare-settlement
+# - Directory? ./
+# - Override settings? No
+
+# ----------------------------------------
+# STEP 5: Add Environment Variables
+# ----------------------------------------
+# After deployment, go to Vercel Dashboard:
+# 1. Select your project
+# 2. Settings → Environment Variables
+# 3. Add these variables:
+
+# NEXT_PUBLIC_API_URL=http://localhost:5000
+# NEXT_PUBLIC_APP_NAME=Healthcare Settlement Platform
+# NEXT_PUBLIC_ENABLE_DEMO=true
+
+# Then redeploy:
+vercel --prod
+
+# ----------------------------------------
+# STEP 6: Deploy Backend (Optional)
+# ----------------------------------------
+
+# Option A: Railway
+npm install -g @railway/cli
+railway login
+cd ..
+railway init
+railway up
+railway domain
+
+# Option B: Render
+# Go to: https://render.com
+# New Web Service → Connect GitHub → Deploy
+
+# Option C: Keep Local
+# Just keep running: python api_server_enhanced.py
+
+# ----------------------------------------
+# STEP 7: Update Backend URL (if deployed)
+# ----------------------------------------
+# Go to Vercel Dashboard
+# Settings → Environment Variables
+# Edit NEXT_PUBLIC_API_URL
+# Change to: https://your-backend-url.com
+# Redeploy: vercel --prod
+
+# ----------------------------------------
+# STEP 8: Test Your Deployment
+# ----------------------------------------
+
+# Test backend
+curl https://your-backend-url.com/api/health
+
+# Test frontend
+# Open: https://your-project.vercel.app
+
+# ========================================
+# DONE! 🎉
+# ========================================
+
+# Your URLs:
+# Frontend: https://your-project.vercel.app
+# Backend: https://your-backend-url.com
+
+# ========================================
+# USEFUL COMMANDS
+# ========================================
+
+# View Vercel logs
+vercel logs
+
+# List environment variables
+vercel env ls
+
+# Redeploy
+vercel --prod
+
+# View Railway logs
+railway logs
+
+# Open Railway dashboard
+railway open
+
+# ========================================
+# TROUBLESHOOTING
+# ========================================
+
+# If build fails:
+# - Check package.json has all dependencies
+# - Ensure pnpm-lock.yaml is committed
+# - Try: vercel --debug
+
+# If can't connect to backend:
+# - Verify NEXT_PUBLIC_API_URL in Vercel
+# - Check backend is running
+# - Test: curl https://your-backend-url.com/api/health
+
+# If CORS errors:
+# - Backend already has CORS enabled
+# - Check URL has no trailing slash
+# - Verify backend URL is correct
+
+# ========================================
+# NEED HELP?
+# ========================================
+
+# Read these files:
+# - VERCEL_DEPLOY_STEPS.md (detailed guide)
+# - DEPLOY_CHECKLIST.md (step-by-step checklist)
+# - DEPLOYMENT_GUIDE.md (comprehensive guide)
+
+# Platform docs:
+# - Vercel: https://vercel.com/docs
+# - Railway: https://docs.railway.app
+# - Render: https://render.com/docs
