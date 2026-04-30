@@ -196,11 +196,16 @@ export interface DashboardStats {
 }
 
 export interface SystemHealth {
-  api_status: "HEALTHY" | "DEGRADED" | "DOWN";
-  blockchain_status: "HEALTHY" | "DEGRADED" | "DOWN";
-  agent_status: "ACTIVE" | "IDLE" | "ERROR";
-  last_check: string;
-  uptime_percentage: number;
+  status: string;
+  timestamp: string;
+  blockchain_blocks: number;
+  total_claims: number;
+  escrow_balance: number;
+  agents: {
+    patient: string;
+    insurer: string;
+    auditor: string;
+  };
 }
 
 // Demo Scenario Types

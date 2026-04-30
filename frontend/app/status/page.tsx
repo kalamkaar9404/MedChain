@@ -46,9 +46,9 @@ export default function SystemStatus() {
             <div className='flex items-start justify-between'>
               <div>
                 <p className='text-gray-600 text-sm font-medium'>API Service</p>
-                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.api_status}</p>
+                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.status || 'Loading...'}</p>
               </div>
-              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.api_status || '')}`}></div>
+              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.status || '')}`}></div>
             </div>
             <p className='text-xs text-gray-500 mt-4'>Last checked: Just now</p>
           </div>
@@ -57,9 +57,9 @@ export default function SystemStatus() {
             <div className='flex items-start justify-between'>
               <div>
                 <p className='text-gray-600 text-sm font-medium'>Blockchain Network</p>
-                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.blockchain_status}</p>
+                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.blockchain_blocks || 0} blocks</p>
               </div>
-              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.blockchain_status || '')}`}></div>
+              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.status || '')}`}></div>
             </div>
             <p className='text-xs text-gray-500 mt-4'>Last checked: Just now</p>
           </div>
@@ -67,10 +67,10 @@ export default function SystemStatus() {
           <div className='bg-white rounded-lg shadow-lg p-6 border border-gray-100'>
             <div className='flex items-start justify-between'>
               <div>
-                <p className='text-gray-600 text-sm font-medium'>AI Agent</p>
-                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.agent_status}</p>
+                <p className='text-gray-600 text-sm font-medium'>AI Agents</p>
+                <p className='text-2xl font-bold text-slate-900 mt-3'>{health?.agents?.patient || 'Loading...'}</p>
               </div>
-              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.agent_status || '')}`}></div>
+              <div className={`w-4 h-4 rounded-full ${getStatusDot(health?.agents?.patient || '')}`}></div>
             </div>
             <p className='text-xs text-gray-500 mt-4'>Last checked: Just now</p>
           </div>
