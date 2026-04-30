@@ -1,7 +1,8 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { format, parseISO } from 'date-fns'
-import { ClaimStatus, RISK_SCORE_THRESHOLDS, RISK_SCORE_COLORS, STATUS_LABELS } from './constants'
+import { ClaimStatus } from './types'
+import { RISK_SCORE_THRESHOLDS, RISK_SCORE_COLORS, STATUS_LABELS } from './constants'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

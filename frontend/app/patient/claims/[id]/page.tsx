@@ -7,6 +7,7 @@ import { VerificationFlow } from '@/components/verification/VerificationFlow'
 import { DocumentVerification } from '@/components/verification/DocumentVerification'
 import { formatCurrency, formatDate, getStatusLabel } from '@/lib/utils'
 import { API_BASE_URL } from '@/lib/constants'
+import { Document } from '@/lib/types'
 
 interface ClaimDetailsPageProps {
   params: { id: string }
@@ -32,7 +33,12 @@ export default async function ClaimDetailsPage({ params }: ClaimDetailsPageProps
     notFound()
   }
 
-  const verificationSteps = [
+  const verificationSteps: Array<{
+    id: string
+    title: string
+    status: 'completed' | 'current' | 'pending'
+    description: string
+  }> = [
     {
       id: 'submission',
       title: 'Claim Submitted',
@@ -42,19 +48,19 @@ export default async function ClaimDetailsPage({ params }: ClaimDetailsPageProps
     {
       id: 'verification',
       title: 'Document Verification',
-      status: claim.status === 'SUBMITTED' ? 'current' : 'completed',
+      status: (claim.status === 'SUBMITTED' ? 'current' : 'completed') as 'completed' | 'current' | 'pending',
       description: 'Verifying documents and eligibility',
     },
     {
       id: 'review',
       title: 'Insurance Review',
-      status: claim.status === 'REVIEWED' ? 'current' : claim.status === 'APPROVED' ? 'completed' : 'pending',
+      status: (claim.status === 'REVIEWED' ? 'current' : claim.status === 'APPROVED' ? 'completed' : 'pending') as 'completed' | 'current' | 'pending',
       description: 'Risk assessment and approval',
     },
     {
       id: 'settlement',
       title: 'Settlement',
-      status: claim.status === 'SETTLED' ? 'completed' : 'pending',
+      status: (claim.status === 'SETTLED' ? 'completed' : 'pending') as 'completed' | 'current' | 'pending',
       description: 'Blockchain finalization',
     },
   ]
@@ -118,15 +124,15 @@ export default async function ClaimDetailsPage({ params }: ClaimDetailsPageProps
               <CardTitle>Documents</CardTitle>
             </CardHeader>
             <CardContent className='space-y-3'>
-              {claim.documents.map((doc: any, idx: number) => (
+              {claim.documents.map((doc: Document, idx: number) => (
                 <DocumentVerification
                   key={idx}
                   documentId={doc.id || `DOC-${idx + 1}`}
                   type={doc.type || 'Document'}
-                  verificationStatus={doc.verification_status || 'pending'}
-                  uploadDate={doc.upload_date || new Date().toISOString()}
-                  verifiedBy={doc.verified_by}
-                  flags={doc.flags}
+                  verificationStatus={(doc.verified ? 'verified' : 'pending') as 'verified' | 'pending' | 'rejected'}
+                  uploadDate={doc.upload_timestamp || new Date().toISOString()}
+                  verifiedBy={undefined}
+                  flags={undefined}
                 />
               ))}
             </CardContent>
