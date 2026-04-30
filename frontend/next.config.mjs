@@ -7,6 +7,10 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  // Force fresh build
+  generateBuildId: async () => {
+    return `build-${Date.now()}`
+  },
 }
 
 export default nextConfig
