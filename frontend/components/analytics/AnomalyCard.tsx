@@ -21,7 +21,7 @@ const SEVERITY_COLORS = {
   HIGH: 'bg-red-50 border-red-200',
 }
 
-const SEVERITY_BADGE = {
+const SEVERITY_BADGE: Record<'LOW' | 'MEDIUM' | 'HIGH', 'outline' | 'secondary' | 'destructive'> = {
   LOW: 'outline',
   MEDIUM: 'secondary',
   HIGH: 'destructive',
