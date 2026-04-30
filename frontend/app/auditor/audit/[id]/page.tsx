@@ -96,28 +96,34 @@ export default async function AuditPage({ params }: AuditPageProps) {
             </Card>
 
             {/* Anomalies Detected */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Anomalies Detected</CardTitle>
-              </CardHeader>
-              <CardContent className='space-y-3'>
-                <AnomalyCard
-                  type='Unusual Billing'
-                  severity='medium'
-                  description='Billing pattern differs from historical data'
-                />
-                <AnomalyCard
-                  type='Provider Mismatch'
-                  severity='low'
-                  description='Provider information requires verification'
-                />
-                <AnomalyCard
-                  type='Document Gap'
-                  severity='high'
-                  description='Missing supporting documentation'
-                />
-              </CardContent>
-            </Card>
+            <AnomalyCard
+              anomalies={[
+                {
+                  id: '1',
+                  claimId: params.id,
+                  type: 'Unusual Billing',
+                  severity: 'MEDIUM',
+                  description: 'Billing pattern differs from historical data',
+                  timestamp: new Date().toISOString()
+                },
+                {
+                  id: '2',
+                  claimId: params.id,
+                  type: 'Provider Mismatch',
+                  severity: 'LOW',
+                  description: 'Provider information requires verification',
+                  timestamp: new Date().toISOString()
+                },
+                {
+                  id: '3',
+                  claimId: params.id,
+                  type: 'Document Gap',
+                  severity: 'HIGH',
+                  description: 'Missing supporting documentation',
+                  timestamp: new Date().toISOString()
+                }
+              ]}
+            />
           </div>
 
           {/* Audit Timeline */}
