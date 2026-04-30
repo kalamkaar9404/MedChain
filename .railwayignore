@@ -1,0 +1,44 @@
+# Frontend files (not needed for backend deployment)
+frontend/
+node_modules/
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+test_*.py
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Batch files
+*.bat
