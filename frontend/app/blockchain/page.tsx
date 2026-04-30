@@ -42,11 +42,11 @@ export default function BlockchainExplorer() {
             <div className='flex items-center justify-between'>
               <div>
                 <p className='text-gray-600 text-sm'>Blockchain Status</p>
-                <p className='text-2xl font-bold text-slate-900 mt-2'>{health?.status || 'Loading...'}</p>
+                <p className='text-2xl font-bold text-slate-900 mt-2'>{health?.data?.status || 'Loading...'}</p>
               </div>
               <div
                 className={`w-4 h-4 rounded-full ${
-                  health?.status === 'healthy' ? 'bg-green-500' : 'bg-yellow-500'
+                  health?.data?.status === 'healthy' ? 'bg-green-500' : 'bg-yellow-500'
                 }`}
               ></div>
             </div>
