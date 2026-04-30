@@ -39,9 +39,9 @@ export default function InsurerDashboard() {
 
   // Prepare chart data
   const statusData = [
-    { name: 'Approved', value: stats?.approved_claims || 0, fill: '#10b981' },
-    { name: 'Rejected', value: stats?.rejected_claims || 0, fill: '#ef4444' },
-    { name: 'Pending', value: stats?.pending_claims || 0, fill: '#f59e0b' },
+    { name: 'Approved', value: stats?.data?.approved_claims || 0, fill: '#10b981' },
+    { name: 'Rejected', value: stats?.data?.rejected_claims || 0, fill: '#ef4444' },
+    { name: 'Pending', value: stats?.data?.pending_claims || 0, fill: '#f59e0b' },
   ].filter((d) => d.value > 0)
 
   const riskDistribution = [
@@ -62,31 +62,31 @@ export default function InsurerDashboard() {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8'>
           <StatsCard
             title='Total Claims'
-            value={stats?.total_claims || 0}
+            value={stats?.data?.total_claims || 0}
             icon={undefined}
             className='bg-gradient-to-br from-blue-50 to-blue-100'
           />
           <StatsCard
             title='Approval Rate'
-            value={`${Math.round(((stats?.approved_claims || 0) / (stats?.total_claims || 1)) * 100)}%`}
+            value={`${Math.round(((stats?.data?.approved_claims || 0) / (stats?.data?.total_claims || 1)) * 100)}%`}
             icon={undefined}
             className='bg-gradient-to-br from-green-50 to-green-100'
           />
           <StatsCard
             title='Avg Processing'
-            value={`${Math.round((stats?.avg_processing_time || 0) / 1000)}s`}
+            value={`${Math.round((stats?.data?.avg_processing_time || 0) / 1000)}s`}
             icon={undefined}
             className='bg-gradient-to-br from-purple-50 to-purple-100'
           />
           <StatsCard
             title='Fraud Detection'
-            value={`${Math.round(stats?.fraud_detection_rate || 0)}%`}
+            value={`${Math.round(stats?.data?.fraud_detection_rate || 0)}%`}
             icon={undefined}
             className='bg-gradient-to-br from-orange-50 to-orange-100'
           />
           <StatsCard
             title='Escrow Balance'
-            value={formatCurrency(stats?.escrow_balance || 0)}
+            value={formatCurrency(stats?.data?.escrow_balance || 0)}
             icon={undefined}
             className='bg-gradient-to-br from-emerald-50 to-emerald-100'
           />
